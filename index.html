@@ -3,406 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartFix | Engineering & Diagnostics</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+    <title>SmartFix Solutions | Eldoret</title>
     <style>
         :root {
-            --bg-deep: #050507;
-            --bg-panel: #0E0E12;
-            --text-primary: #ECECEC;
-            --text-muted: #9CA3AF;
-            --accent-main: #00F0FF; 
-            --accent-glow: rgba(0, 240, 255, 0.15);
-            --border-dim: #1F1F2E;
-            --success: #00FF94;
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #00ff41; 
+            --secondary-accent: #0ea5e9; 
+            --card-bg: #1a1a1a;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
         
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            padding-bottom: 120px; /* Extra space for FAB */
-            -webkit-font-smoothing: antialiased;
-        }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
 
-        h1, h2, h3, .mono { font-family: 'JetBrains Mono', monospace; }
-
-        /* --- HEADER --- */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 1.5rem;
-            border-bottom: 1px solid var(--border-dim);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(5, 5, 7, 0.95);
+            background: linear-gradient(180deg, rgba(0,0,0,0.9), var(--bg-color));
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
         }
 
-        .brand {
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            color: #fff;
-        }
-        .brand span { color: var(--accent-main); }
+        h1 { color: var(--accent-color); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; }
+        p.tagline { color: var(--secondary-accent); font-weight: bold; }
 
-        .status {
-            font-size: 0.7rem;
-            color: var(--success);
-            border: 1px solid rgba(0, 255, 148, 0.2);
-            padding: 4px 8px;
-            border-radius: 4px;
-            background: rgba(0, 255, 148, 0.05);
-            font-family: 'JetBrains Mono', monospace;
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
-        /* --- HERO --- */
-        .hero {
-            padding: 2.5rem 1.5rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.2rem;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            border-left: 2px solid var(--accent-main);
-            padding-left: 1rem;
-        }
-
-        /* --- SECTION TITLES --- */
-        .section-title {
-            padding: 0 1.5rem;
-            margin-bottom: 0.8rem;
-            font-size: 0.75rem;
-            color: var(--accent-main);
-            max-width: 800px;
-            margin: 2rem auto 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-family: 'JetBrains Mono', monospace;
-            opacity: 0.8;
-        }
-
-        /* --- THE PROTOCOL (NEW) --- */
-        .protocol-box {
-            margin: 0 1.5rem;
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
             padding: 1.5rem;
-            background: var(--bg-panel);
-            border: 1px solid var(--border-dim);
-            border-radius: 8px;
-            max-width: 800px;
-            margin: 0 auto 2rem;
+            border-left: 4px solid var(--accent-color);
         }
+
+        .card h3 { color: #fff; margin-bottom: 0.5rem; }
+        .price { color: var(--accent-color); font-weight: bold; float: right; }
         
-        .protocol-step {
-            margin-bottom: 1.2rem;
-        }
-        .protocol-step:last-child { margin-bottom: 0; }
-
-        .protocol-head {
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.2rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .protocol-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* --- SERVICES (EXPANDED) --- */
-        .service-list {
-            padding: 0 1.5rem;
-            max-width: 800px;
-            margin: 0 auto;
-            display: grid;
-            gap: 12px;
-        }
-
-        details {
-            background: var(--bg-panel);
-            border: 1px solid var(--border-dim);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        details[open] {
-            border-color: var(--accent-main);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        summary {
-            padding: 1.2rem;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            list-style: none;
-        }
-
-        summary::-webkit-details-marker { display: none; }
-
-        summary::after {
-            content: '+';
-            color: var(--accent-main);
-            font-size: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 300;
-        }
-
-        details[open] summary::after { transform: rotate(45deg); }
-
-        .detail-content {
-            padding: 0 1.2rem 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            border-top: 1px solid var(--border-dim);
-            background: rgba(0,0,0,0.2);
-        }
-
-        .detail-content ul {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .detail-content li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.2rem;
-            position: relative;
-        }
-
-        .detail-content li::before {
-            content: '>';
-            position: absolute;
-            left: 0;
-            color: var(--accent-main);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            top: 4px;
-        }
-
-        .price-tag {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 4px 8px;
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--accent-main);
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* --- WHY US GRID --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 0 1.5rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .feature-card {
-            background: var(--bg-panel);
-            border: 1px solid var(--border-dim);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .feature-icon {
-            color: var(--accent-main);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        .feature-text {
-            font-size: 0.8rem;
-            color: #ccc;
-        }
-
-        /* --- FOOTER & FAB --- */
-        .footer-info {
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: #555;
-            margin-top: 3rem;
-        }
-
-        .fab-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            display: flex;
-            gap: 10px;
-            background: rgba(14, 14, 18, 0.95);
-            padding: 10px;
-            border-radius: 12px;
-            border: 1px solid var(--border-dim);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            z-index: 200;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px;
-            border-radius: 6px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: transform 0.2s;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .btn:active { transform: scale(0.98); }
-        .btn-primary {
-            background: var(--accent-main);
+        .cta-button {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
             color: #000;
-            box-shadow: 0 0 15px var(--accent-glow);
+            text-align: center;
+            padding: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 2rem;
+            border: none;
+            cursor: pointer;
         }
-        .btn-secondary {
-            background: transparent;
-            color: #fff;
-            border: 1px solid var(--border-dim);
-        }
+
+        .cta-button:hover { background-color: #00cc33; }
+
+        footer { text-align: center; padding: 2rem; color: #666; font-size: 0.8rem; }
+        .status-online { color: var(--accent-color); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand">Smart<span>Fix</span></div>
-        <div class="status">● SYSTEMS ONLINE</div>
+        <h1>SmartFix Solutions</h1>
+        <p class="tagline">MILITARY-GRADE REPAIR // ELDORET</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">STATUS: <span class="status-online">● ONLINE</span></p>
     </header>
 
-    <section class="hero">
-        <h1>DON'T REPLACE IT.<br>FIX IT.</h1>
-        <p>Professional electronics engineering in Eldoret. We analyze the logic, find the fault, and execute the repair.</p>
-    </section>
-
-    <div class="section-title">THE SMARTFIX PROTOCOL</div>
-    <div class="protocol-box">
-        <div class="protocol-step">
-            <div class="protocol-head">01 // DIAGNOSTICS</div>
-            <div class="protocol-desc">We don't guess. We use logic analyzers and thermal imaging to find the exact component failure.</div>
-        </div>
-        <div class="protocol-step">
-            <div class="protocol-head">02 // PRECISION REPAIR</div>
-            <div class="protocol-desc">We replace the specific micro-chip (KES 500), not the whole motherboard (KES 15,000). You save money.</div>
-        </div>
-        <div class="protocol-step">
-            <div class="protocol-head">03 // DATA SECURITY</div>
-            <div class="protocol-desc">Your privacy is paramount. We fix hardware without accessing your personal files or photos.</div>
-        </div>
-    </div>
-
-    <div class="section-title">SERVICE MODULES</div>
-
-    <div class="service-list">
+    <div class="container">
         
-        <details>
-            <summary>Phones & Laptops</summary>
-            <div class="detail-content">
-                <p>Advanced hardware and software intervention for mobile devices.</p>
-                <ul>
-                    <li><strong>Display:</strong> OLED/LCD replacement with calibration.</li>
-                    <li><strong>Power:</strong> Charging IC, Battery, and Port repair.</li>
-                    <li><strong>System:</strong> Termux Setup, Rooting, Firmware Flashing.</li>
-                    <li><strong>Privacy:</strong> Data recovery from dead devices.</li>
-                </ul>
-                <span class="price-tag">DIAGNOSTICS: FREE ON REPAIR</span>
-            </div>
-        </details>
-
-        <details>
-            <summary>TVs, Fridges & Audio</summary>
-            <div class="detail-content">
-                <p>We bring the workshop to your house. No need to carry heavy appliances.</p>
-                <ul>
-                    <li><strong>Smart TVs:</strong> Backlight repair, Mainboard logic fix.</li>
-                    <li><strong>Cooling:</strong> Inverter board repair for modern fridges.</li>
-                    <li><strong>Audio:</strong> Amplifier IC replacement for Subwoofers.</li>
-                    <li><strong>Heating:</strong> Microwave magnetron & control panel fix.</li>
-                </ul>
-                <span class="price-tag">SITE VISIT: ELDORET ENVIRONS</span>
-            </div>
-        </details>
-
-        <details>
-            <summary>Incubators & Farm Tools</summary>
-            <div class="detail-content">
-                <p>Zero downtime for your farm. We understand that eggs cannot wait.</p>
-                <ul>
-                    <li><strong>Incubators:</strong> Controller calibration (Temp/Humidity).</li>
-                    <li><strong>Sensors:</strong> Drift correction and replacement.</li>
-                    <li><strong>Motors:</strong> Turning mechanism repair.</li>
-                </ul>
-                <span class="price-tag">PRIORITY DISPATCH AVAILABLE</span>
-            </div>
-        </details>
-
-        <details>
-            <summary>Custom Tech & Builds</summary>
-            <div class="detail-content">
-                <p>Engineering solutions for unique problems.</p>
-                <ul>
-                    <li><strong>Gaming:</strong> Custom PC Rigs and modifications.</li>
-                    <li><strong>Network:</strong> WiFi Boosting & Security setup.</li>
-                    <li><strong>IoT:</strong> Smart Home automation scripts.</li>
-                </ul>
-            </div>
-        </details>
-
-    </div>
-
-    <div class="section-title" style="margin-top: 2rem;">OPERATIONAL ADVANTAGE</div>
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
-            <div class="feature-text">MOBILE UNIT<br>We Come To You</div>
+        <div style="background: #111; padding: 1rem; border: 1px dashed #444; margin-bottom: 2rem;">
+            <p><strong> > SYSTEM DIAGNOSTIC:</strong> We don't guess. We engineer solutions. Precision repair for Phones, Laptops, and Custom Hardware.</p>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <div class="feature-text">SECURE<br>Strict Privacy</div>
+
+        <h2>// SOFTWARE OPS</h2>
+        <div class="service-grid">
+            <div class="card">
+                <h3>System Speed Run <span class="price">500 KES</span></h3>
+                <p>Debloat, Cache Clear, Animation Scaling. Makes laggy Androids fly.</p>
+            </div>
+            <div class="card">
+                <h3>Lazarus Protocol <span class="price">1500+ KES</span></h3>
+                <p>Data Recovery. We dig out deleted photos and docs.</p>
+            </div>
+            <div class="card">
+                <h3>Unbrick & Unlock <span class="price">1500-2500 KES</span></h3>
+                <p>Bootloops, FRP Bypass, Password Reset. Resurrecting dead units.</p>
+            </div>
         </div>
+
+        <h2>// HARDWARE OPS</h2>
+        <div class="service-grid">
+            <div class="card">
+                <h3>Screen Surgery <span class="price">Est. on Request</span></h3>
+                <p>Precision LCD/OLED replacement. No glue residue.</p>
+            </div>
+            <div class="card">
+                <h3>Power Grid <span class="price">Labor: 500 KES</span></h3>
+                <p>Battery swaps & Charging Port microsoldering. (+ Part Cost)</p>
+            </div>
+        </div>
+
+        <h2>// SPECIAL ACCESS</h2>
+        <div class="service-grid">
+            <div class="card">
+                <h3>Termux Workstation <span class="price">1500 KES</span></h3>
+                <p>Turn your Android into a hacking rig. Python, Git, Zsh setup.</p>
+            </div>
+        </div>
+
+        <a href="https://wa.me/254706320453?text=I%20have%20a%20tech%20issue" class="cta-button">
+            INITIATE REPAIR (WHATSAPP)
+        </a>
+
     </div>
 
-    <div class="footer-info">
-        SMARTFIX SOLUTIONS © 2026<br>
-        OPERATING IN ELDORET, KE
-    </div>
-
-    <div class="fab-container">
-        <a href="tel:+254706320453" class="btn btn-secondary">CALL</a>
-        <a href="https://wa.me/254706320453?text=Initiating%20SmartFix%20Request:%20I%20need%20a%20technician." class="btn btn-primary">WHATSAPP</a>
-    </div>
+    <footer>
+        <p>SMARTFIX SOLUTIONS © 2026</p>
+        <p>Contact: lewix369@gmail.com</p>
+        <p>Operating out of Eldoret, KE</p>
+    </footer>
 
 </body>
 </html>
